@@ -16,30 +16,10 @@
         <p>更多 &gt; </p>
       </div>
       <div class="new_song_body">
-        <div class="new_song_item">
-          <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-          <p class="title">写给一首歌的歌</p>
-          <p>白举纲</p>
-        </div>
-        <div class="new_song_item">
-          <img src="../assets/img/90x90/T002R90x90M000001LC99w1g9eVG.jpg" alt="">
-          <p class="title">Higher Love</p>
-          <p>Kygo / Whitney Houston</p>
-        </div>
-        <div class="new_song_item">
-          <img src="../assets/img/90x90/T002R90x90M000002qENNf06CQBk.jpg" alt="">
-          <p class="title">写给一首歌的歌</p>
-          <p>白举纲</p>
-        </div>
-        <div class="new_song_item">
-          <img src="../assets/img/90x90/T002R90x90M000002qENNf06CQBk.jpg" alt="">
-          <p class="title">写给一首歌的歌</p>
-          <p>白举纲</p>
-        </div>
-        <div class="new_song_item">
-          <img src="../assets/img/90x90/T002R90x90M000002qENNf06CQBk.jpg" alt="">
-          <p class="title">写给一首歌的歌</p>
-          <p>白举纲</p>
+        <div class="new_song_item"  v-for="item in new_list">
+          <img :src="item.music_img_url" alt="">
+          <p class="title">{{item.music_name}}</p>
+          <p>{{item.singer}}</p>
         </div>
       </div>
     </div>
@@ -51,29 +31,20 @@
       <div class="hot_body">
         <div class="hot_item">
           <img src="../assets/img/300x300/max.png" alt="" width="90px">
-          <ul>
-            <li>
-                               <span>1</span>
-                               写给一首歌的歌-白举纲</li>
-                           <li></li>
-                            <li></li>
+          <ul class="list">
+            <li v-for="(item,index) in max_list">
+               <span>{{index + 1}}</span>
+               写{{item.music_name}}-{{item.singer}}</li>
           </ul>
         </div>
         <div class="hot_item">
           <img src="../assets/img/300x300/top.png" alt="" width="90px">
           <ul class="list">
-            <li>
-                <span>1</span>
-                写给一首歌的歌-白举纲
+            <li v-for="(item,index) in top_list">
+                <span>{{index + 1}}</span>
+                {{item.singer}}-白举纲
             </li>
-            <li>
-                <span>1</span>
-                写给一首歌的歌-白举纲
-            </li>
-            <li>
-                <span>1</span>
-                写给一首歌的歌-白举纲
-            </li>
+
           </ul>
         </div>
       </div>
@@ -86,11 +57,30 @@ export default {
   name: 'Home',
   data () {
     return {
-      msg: ''
+      new_list: null,
+      max_list:null,
+      top_list:null
     }
   },
   created(){
-  // this.$axios.get("").then(() => )
+    this.$axios.get("/musicApi/musics/create_time").then((res) => {
+      console.log(res)
+      if(res.status == 200) {
+        this.new_list = res.data.data
+      }
+    });
+    this.$axios.get("/musicApi/musics/collection_number").then((res) => {
+      console.log(res)
+      if(res.status == 200) {
+        this.max_list = res.data.data
+      }
+    });
+    this.$axios.get("/musicApi/musics/click_number").then((res) => {
+      console.log(res)
+      if(res.status == 200) {
+        this.top_list = res.data.data
+      }
+    })
   }
 }
 </script>
@@ -167,7 +157,6 @@ export default {
   }
   .hot_item ul{
     float: right;
-    margin-right: 60px;
   }
   .hot_item ul>li {
     height: 32px;

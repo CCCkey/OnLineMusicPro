@@ -2,9 +2,9 @@
   <div id="app">
     <header class="bar bar-nav">
       <!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a> -->
-      <a href="javascript:;" class="logo"><img src="./assets/img/logo/logo.png" alt=""></a>
-      <a href="javascript:;" class="brand"><img src="./assets/img/logo/brand.png" alt=""></a>
-      <a href="javascript:;" class="search"><img src="./assets/img/64x64/seach.png" alt=""></a>
+      <a href="" class="logo"><img src="./assets/img/logo/logo.png" alt=""></a>
+      <a href="" class="brand"><img src="./assets/img/logo/brand.png" alt=""></a>
+      <a href="" class="search"><img src="./assets/img/64x64/seach.png" alt=""></a>
     </header>
     <router-view/>
     <nav class="bar bar-tab">
