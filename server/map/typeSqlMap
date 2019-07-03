@@ -1,0 +1,13 @@
+/* 类型SQL语句*/
+
+let typeSqlMap = {
+
+  types:{
+    //获得所有类型名
+    all: 'select type_name from type',
+    //获得类型id
+    id: 'select id from type where type_name = ?',
+  }
+};
+
+module.exports = typeSqlMap;
