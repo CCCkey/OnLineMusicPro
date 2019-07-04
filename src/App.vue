@@ -8,25 +8,25 @@
     </header>
     <router-view/>
     <nav class="bar bar-tab">
-      <router-link class="tab-item active" to="/">
-        <span class="icon icon-home"></span>
-        <span class="tab-label">首页</span>
+      <router-link class="tab-item" to="/">
+        <span class="icon icon-home"><img src="./assets/img/64x64/bottom/home.png" alt=""></span>
+        <p class="tab-label">首页</p>
       </router-link>
       <router-link class="tab-item" to="/category">
-        <span class="icon icon-email"></span>
-        <span class="tab-label">发现</span>
+        <span class="icon icon-email"><img src="./assets/img/64x64/bottom/music.png" alt=""></span>
+        <p class="tab-label">发现</p>
       </router-link>
       <router-link class="tab-item" to="/">
-        <span class="icon icon-contact"></span>
-        <span class="tab-label">专辑</span>
+        <span class="icon icon-contact"><img src="./assets/img/64x64/bottom/album.png" alt=""></span>
+        <p class="tab-label">专辑</p>
       </router-link>
       <router-link class="tab-item" to="/">
-        <span class="icon icon-gear"></span>
-        <span class="tab-label">排行</span>
+        <span class="icon icon-gear"><img src="./assets/img/64x64/bottom/rank.png" alt=""></span>
+        <p class="tab-label">排行</p>
       </router-link>
-      <router-link class="tab-item" to="/">
-        <span class="icon icon-gear"></span>
-        <span class="tab-label">我的</span>
+      <router-link class="tab-item" to="/" @click="">
+        <span class="icon icon-gear"><img src="./assets/img/64x64/bottom/user.png" alt=""></span>
+        <p class="tab-label">我的</p>
       </router-link>
     </nav>
   </div>
@@ -34,21 +34,30 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return {
+      flag:true
+    }
+  },
+  methods:{
+    toggleSrc(){
+
+    }
+  }
 }
 </script>
 
 <style>
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000;
-  position: absolute;
-  top: 40px;
-  bottom: 50px;
-  left: 10px;
-  right: 10px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
   box-sizing: border-box;
 }
 *{margin: 0;padding: 0;}
@@ -121,4 +130,7 @@ a:focus, a:hover {
   text-align: center;
   font-size: 14px;
 }
+  .icon img{
+    width: 30%;
+  }
 </style>

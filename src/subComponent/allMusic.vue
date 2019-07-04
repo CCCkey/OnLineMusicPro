@@ -5,11 +5,7 @@
       <p>不用去猜</p>
       <p>jj</p>
     </div>
-    <div class="con_item">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
-    </div>
+
     <div class="con_item">
       <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
       <p>不用去猜</p>
@@ -43,7 +39,7 @@
 <style scoped>
   .cate_content {
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
   }
 

@@ -1,25 +1,6 @@
 <template>
   <div class="cate_content">
-    <div class="con_item">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
-    </div>
-    <div class="con_item">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
-    </div>
-    <div class="con_item">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
-    </div>
-    <div class="con_item">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
-    </div>
+  {{this.$route.params.type_name}}
   </div>
 </template>
 <script>
@@ -27,16 +8,17 @@ export default {
   data(){
     return {
       type_name:this.$route.params.type_name,
+      page:1,
       list:null
     }
   },
   created(){
-    // this.$axios.get("/typeApi/musics/type"+this.type_name).then((res) => {
-    //   console.log(res)
-    //   // if(res.status == 200) {
-    //   //   this.list = res.data.data
-    //   // }
-    // });
+    this.$axios.get("/musicApi/musics/type?type_name="+this.type_name+"&page="+this.page).then((res) => {
+      console.log(res)
+      // if(res.status == 200) {
+      //   this.list = res.data.data
+      // }
+    });
   }
 }
 </script>

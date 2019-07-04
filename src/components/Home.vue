@@ -1,15 +1,14 @@
 <template>
   <div class="hello">
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="../assets/img/loop/wallhaven-3959yy.jpg" alt=""></div>
-<!--        <div class="swiper-slide"><img src="../assets/img/loop/wallhaven-oxyl99.jpg" alt=""></div>-->
-<!--        <div class="swiper-slide"><img src="../assets/img/loop/wallhaven-w8wl27.jpg" alt=""></div>-->
+    <div id="frame">
+      <div id="photos" class="play">
+        <img src="../assets/img/loop/wallhaven-3959yy.jpg">
+        <img src="../assets/img/loop/wallhaven-oxyl99.jpg">
+        <img src="../assets/img/loop/wallhaven-w8wl27.jpg">
+        <img src="../assets/img/loop/wallhaven-oxyl99.jpg">
       </div>
-      <!-- 如果需要分页器 -->
-<!--      <div class="swiper-pagination"></div>-->
-
     </div>
+
     <div class="new_song">
       <div class="new_song_title">
         <h4>新歌推送</h4>
@@ -66,6 +65,7 @@ export default {
     this.$axios.get("/musicApi/musics/create_time").then((res) => {
       if(res.data.code == 200) {
         this.new_list = res.data.data
+        this.new_list.splice(0,2)
       }
     });
     this.$axios.get("/musicApi/musics/collection_number").then((res) => {
@@ -88,17 +88,9 @@ export default {
   li{
     list-style: none;
   }
-  .swiper-container {
-    /*background: url(../img/loop/mask.png) no-repeat;*/
-    width: 100%;
-    height: 211px;
-  }
-  .swiper-container img{
-    width: 100%;
-    height: 211px;
-  }
-  .swiper-pagination-bullet-active {
-    background-color: #fff;
+
+  .hello {
+    padding:0 10px;
   }
   .new_song,.hot {
     margin-top: 15px;
@@ -111,18 +103,17 @@ export default {
   .new_song_item {
     float: left;
     text-align: center;
-    /*width: 33.3%;*/
-    width: 107px;
+    width: 33.3%;
     overflow: hidden;
-    padding: 0 5px;
   }
   .new_song_item img{
-    width: 100%;
+    width: 90%;
+    border-radius: 10px;
   }
   .new_song_item p{
     overflow: hidden;
     text-align: left;
-    margin: 0;
+    margin-left: 10px;
     padding: 0;
     height: 20px;
     font-size: 14px;
@@ -157,6 +148,7 @@ export default {
   }
   .hot_item ul{
     float: right;
+    margin-right: 15%;
     width: 50%;
     height: 100px;
     overflow: hidden;
@@ -166,5 +158,43 @@ export default {
     height: 32px;
     line-height: 32px;
     overflow: hidden;
+  }
+
+
+  #frame {
+    position:relative;
+    width:100%;
+    height:200px;
+    overflow:hidden;
+    border-radius:10px
+  }
+
+  #photos img {
+    float:left;
+    width:25%;
+    /*height: 200px;*/
+  }
+  #photos {
+    position:absolute;
+    z-index:9;
+    width:calc(100% * 4);
+    /*---修改图片数量的话需要修改下面的动画参数*/
+  }
+  .play {
+    animation:ma 20s ease-out infinite alternate;
+  }
+  @keyframes ma {
+    0%,25% {
+      margin-left:0;
+    }
+    30%,50% {
+      margin-left:-100%;
+    }
+    55%,75% {
+      margin-left:-200%;
+    }
+    80%,100% {
+      margin-left:-300%;
+    }
   }
 </style>

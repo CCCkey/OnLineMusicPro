@@ -26,7 +26,6 @@ export default new Router({
     },
     {
       path: '/category',
-      name: 'Category',
       component: Category,
       children: [
         {
@@ -35,7 +34,7 @@ export default new Router({
           component: AllMusic,
         },
         {
-          path: '/type/:type_name',
+          path: 'type/:type_name',
           name: 'CateList',
           component: CateList,
         }

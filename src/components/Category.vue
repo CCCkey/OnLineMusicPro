@@ -38,7 +38,7 @@
   }
   .cate_title {
     overflow: hidden;
-    margin-top: 20px;
+    margin-top: 65px;
     margin-left: 20px;
   }
 
@@ -51,7 +51,7 @@
   .right li{
     float: left;
     list-style: none;
-    margin-right: 5px;
+    margin-right: 10px;
   }
 
   .cate_title a {
