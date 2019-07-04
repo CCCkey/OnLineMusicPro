@@ -6,21 +6,6 @@
         <li v-for="item in type_list">
           <router-link :to="'/category/type/'+item.type_name" > {{item.type_name}} </router-link>
         </li>
-<!--        <li>-->
-<!--          <router-link :to="'/category/type/'+type_list[0].type_name" exact-active-class = "_active"> {{type_list[0].type_name}} </router-link>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <router-link :to="'/category/type/'+type_list[1].type_name" exact-active-class = "_active"> {{type_list[1].type_name}} </router-link>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <router-link :to="'/category/type/'+type_list[2].type_name" exact-active-class = "_active"> {{type_list[2].type_name}} </router-link>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <router-link :to="'/category/type/'+type_list[3].type_name" exact-active-class = "_active"> {{type_list[3].type_name}} </router-link>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <router-link :to="'/category/type/'+type_list[4].type_name" exact-active-class = "_active"> {{type_list[4].type_name}} </router-link>-->
-<!--        </li>-->
       </div>
     </div>
     <router-view/>

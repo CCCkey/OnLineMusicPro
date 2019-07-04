@@ -1,20 +1,9 @@
 <template>
   <div class="cate_content">
     <div class="con_item" v-for="item in all_list">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
+      <img :src="item.music_img_url" alt="">
       <p>{{item.music_name}}</p>
       <p>{{item.singer}}</p>
-    </div>
-
-    <div class="con_item">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
-    </div>
-    <div class="con_item">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
     </div>
   </div>
 </template>
@@ -28,7 +17,7 @@
     },
     created(){
       this.$axios.get("/musicApi/musics/all?page="+this.page).then((res) => {
-        // console.log(res)
+        console.log(res)
         if(res.status == 200) {
           this.all_list = res.data.data
         }

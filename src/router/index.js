@@ -5,6 +5,7 @@ import Home from '@/components/Home'
 import Category from '@/components/Category'
 import CateList from '@/subComponent/cateList'
 import AllMusic from '@/subComponent/allMusic'
+import MusicPlay from '@/components/musicPlay'
 
 Vue.use(Router);
 // 测试前后端数据交互和跨域
@@ -39,6 +40,11 @@ export default new Router({
           component: CateList,
         }
       ]
+    },
+    {
+      path: '/MusicPlay',
+      name: 'MusicPlay',
+      component: MusicPlay
     }
   ]
 })

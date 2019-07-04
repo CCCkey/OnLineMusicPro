@@ -1,7 +1,7 @@
 <template>
   <div class="cate_content">
     <div class="con_item" v-for="item in list">
-      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
+      <img :src="item.music_img_url" alt="">
       <p>{{item.music_name}}</p>
       <p>{{item.singer}}</p>
     </div>
@@ -17,14 +17,20 @@ export default {
     }
   },
   created(){
-    console.log(this.type_name)
-    this.$axios.get("/musicApi/musics/type?type_name="+this.type_name+"&page="+this.page).then((res) => {
-      // console.log(res)
-      if(res.status == 200) {
-        this.list = res.data.data
-      }
-    });
-  }
+  },
+  watch: {
+    $route: {
+      handler: function(val, oldVal){
+        this.$axios.get("/musicApi/musics/type?type_name="+val.params.type_name+"&page="+this.page).then((res) => {
+          if(res.status == 200) {
+            this.list = res.data.data
+          }
+        });
+      },
+      // 深度观察监听
+      deep: true
+    }
+  },
 }
 </script>
 <style scoped>
