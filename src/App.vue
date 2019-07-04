@@ -12,7 +12,7 @@
         <span class="icon icon-home"></span>
         <span class="tab-label">首页</span>
       </router-link>
-      <router-link class="tab-item" to="/categoty">
+      <router-link class="tab-item" to="/category">
         <span class="icon icon-email"></span>
         <span class="tab-label">发现</span>
       </router-link>
@@ -73,21 +73,28 @@ a:focus, a:hover {
 }
 .logo img {
   width: 60%;
+
 }
 .brand {
-  flex: 2
+  flex: 2;
+  position: relative;
 }
 .brand img {
-  width: 60%;
+  width: 50%;
+  position: absolute;
+  left:-30px;
+  top: 10px
 }
 .search {
   flex: 1;
-  /* position: absolute;
-  right: 20px;
-  top: 20px */
+  position: relative;
+
 }
 .search img {
   width: 30%;
+  position: absolute;
+  right: 30px;
+  top: 10px
 }
 .bar-nav {
   -webkit-box-shadow: none;

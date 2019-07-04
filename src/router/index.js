@@ -3,7 +3,8 @@ import Router from 'vue-router'
 // import Axios from 'axios'
 import Home from '@/components/Home'
 import Category from '@/components/Category'
-
+import CateList from '@/subComponent/cateList'
+import AllMusic from '@/subComponent/allMusic'
 
 Vue.use(Router);
 // 测试前后端数据交互和跨域
@@ -26,7 +27,19 @@ export default new Router({
     {
       path: '/category',
       name: 'Category',
-      component: Category
+      component: Category,
+      children: [
+        {
+          path: '/',
+          name: 'AllMusic',
+          component: AllMusic,
+        },
+        {
+          path: '/type/:type_name',
+          name: 'CateList',
+          component: CateList,
+        }
+      ]
     }
   ]
 })

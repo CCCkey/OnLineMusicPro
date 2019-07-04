@@ -30,19 +30,19 @@
       </div>
       <div class="hot_body">
         <div class="hot_item">
-          <img src="../assets/img/300x300/max.png" alt="" width="90px">
+          <img src="../assets/img/300x300/max.png" alt="">
           <ul class="list">
             <li v-for="(item,index) in max_list">
                <span>{{index + 1}}</span>
-               写{{item.music_name}}-{{item.singer}}</li>
+               {{item.music_name}}-{{item.singer}}</li>
           </ul>
         </div>
         <div class="hot_item">
-          <img src="../assets/img/300x300/top.png" alt="" width="90px">
+          <img src="../assets/img/300x300/top.png" alt="">
           <ul class="list">
             <li v-for="(item,index) in top_list">
                 <span>{{index + 1}}</span>
-                {{item.singer}}-白举纲
+              {{item.music_name}}-{{item.singer}}
             </li>
 
           </ul>
@@ -64,20 +64,17 @@ export default {
   },
   created(){
     this.$axios.get("/musicApi/musics/create_time").then((res) => {
-      console.log(res)
-      if(res.status == 200) {
+      if(res.data.code == 200) {
         this.new_list = res.data.data
       }
     });
     this.$axios.get("/musicApi/musics/collection_number").then((res) => {
-      console.log(res)
-      if(res.status == 200) {
+      if(res.data.code == 200) {
         this.max_list = res.data.data
       }
     });
     this.$axios.get("/musicApi/musics/click_number").then((res) => {
-      console.log(res)
-      if(res.status == 200) {
+      if(res.data.code == 200) {
         this.top_list = res.data.data
       }
     })
@@ -87,7 +84,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  *{margin: 0px;padding: 0px;}
+  *{margin: 0;padding: 0;}
   li{
     list-style: none;
   }
@@ -155,11 +152,19 @@ export default {
     letter-spacing: 2px;
     font-weight: 600;
   }
+  .hot_item img{
+    width: 90px;
+  }
   .hot_item ul{
     float: right;
+    width: 50%;
+    height: 100px;
+    overflow: hidden;
   }
   .hot_item ul>li {
+    width: 100%;
     height: 32px;
     line-height: 32px;
+    overflow: hidden;
   }
 </style>

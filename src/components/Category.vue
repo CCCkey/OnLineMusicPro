@@ -1,69 +1,60 @@
 <template>
-  <div class="cate_list">
-    <div class="title">
-      <router-link to="/" class="left">全部歌曲 &gt;</router-link>
+  <div>
+    <div class="cate_title">
+      <router-link to="/category/" class="left">全部歌曲 &gt;</router-link>
       <div class="right">
-        <router-link to="/">华语 |</router-link>
-        <router-link to="/">华语 |</router-link>
-        <router-link to="/">华语 |</router-link>
-        <router-link to="/">华语 |</router-link>
-        <router-link to="/">华语 </router-link>
+        <li v-for="item in type_list">
+          <router-link :to="'/category/type/'+item.type_name" > {{item.type_name}} </router-link>
+        </li>
+
       </div>
     </div>
-    <div class="content">
-      <div class="con_item">
-        <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-        <p>不用去猜</p>
-        <p>jj</p>
-      </div>
-      <div class="con_item">
-        <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-        <p>不用去猜</p>
-        <p>jj</p>
-      </div>
-      <div class="con_item">
-        <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-        <p>不用去猜</p>
-        <p>jj</p>
-      </div>
-      <div class="con_item">
-        <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-        <p>不用去猜</p>
-        <p>jj</p>
-      </div>
-    </div>
+    <router-view/>
+
   </div>
 </template>
 <script>
-export default {
-  name: 'Category',
-  data(){
+  export default {
+  data (){
     return {
-
+        type_list:null
     }
+  },
+  created(){
+    this.$axios.get("/typeApi/types/all").then((res) => {
+      if(res.status == 200) {
+        this.type_list = res.data.data
+      }
+    });
   }
-}
+  }
 </script>
-<style scoped>
-  .title {
+<style>
+  html,body,p,ul,li,img,a,div,form,input{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cate_title {
     overflow: hidden;
+    margin-top: 20px;
+    margin-left: 20px;
   }
 
   .right {
     float: right;
-    margin-top: 10px;
-  }
-
-  .content {
+    margin-top: 5px;
+    margin-right: 10px;
     overflow: hidden;
   }
-
-  .con_item {
+  .right li{
     float: left;
-    width: 50%;
+    list-style: none;
+    margin-right: 5px;
   }
 
-  .title a {
+  .cate_title a {
     color: #000;
     text-decoration: none;
   }
