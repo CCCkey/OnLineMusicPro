@@ -1,9 +1,9 @@
 <template>
   <div class="cate_content">
-    <div class="con_item">
+    <div class="con_item" v-for="item in all_list">
       <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
-      <p>不用去猜</p>
-      <p>jj</p>
+      <p>{{item.music_name}}</p>
+      <p>{{item.singer}}</p>
     </div>
 
     <div class="con_item">
@@ -28,10 +28,10 @@
     },
     created(){
       this.$axios.get("/musicApi/musics/all?page="+this.page).then((res) => {
-        console.log(res)
-        // if(res.status == 200) {
-        //   this.all_list = res.data.data
-        // }
+        // console.log(res)
+        if(res.status == 200) {
+          this.all_list = res.data.data
+        }
       });
     }
   }
@@ -51,5 +51,11 @@
   .con_item img{
     width: 120px;
     border-radius: 20px;
+  }
+  .con_item p{
+    padding: 0 10px;
+    height: 20px;
+    overflow: hidden;
+    font-size: 14px;
   }
 </style>

@@ -1,6 +1,10 @@
 <template>
   <div class="cate_content">
-  {{this.$route.params.type_name}}
+    <div class="con_item" v-for="item in list">
+      <img src="../assets/img/90x90/T002R90x90M000000YFOEc3weOYN.jpg" alt="">
+      <p>{{item.music_name}}</p>
+      <p>{{item.singer}}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -13,11 +17,12 @@ export default {
     }
   },
   created(){
+    console.log(this.type_name)
     this.$axios.get("/musicApi/musics/type?type_name="+this.type_name+"&page="+this.page).then((res) => {
-      console.log(res)
-      // if(res.status == 200) {
-      //   this.list = res.data.data
-      // }
+      // console.log(res)
+      if(res.status == 200) {
+        this.list = res.data.data
+      }
     });
   }
 }
@@ -37,5 +42,10 @@ export default {
   .con_item img{
     width: 120px;
     border-radius: 20px;
+  }
+  .con_item p{
+    overflow: hidden;
+    height: 20px;
+    font-size: 14px;
   }
 </style>

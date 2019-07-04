@@ -6,7 +6,21 @@
         <li v-for="item in type_list">
           <router-link :to="'/category/type/'+item.type_name" > {{item.type_name}} </router-link>
         </li>
-
+<!--        <li>-->
+<!--          <router-link :to="'/category/type/'+type_list[0].type_name" exact-active-class = "_active"> {{type_list[0].type_name}} </router-link>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <router-link :to="'/category/type/'+type_list[1].type_name" exact-active-class = "_active"> {{type_list[1].type_name}} </router-link>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <router-link :to="'/category/type/'+type_list[2].type_name" exact-active-class = "_active"> {{type_list[2].type_name}} </router-link>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <router-link :to="'/category/type/'+type_list[3].type_name" exact-active-class = "_active"> {{type_list[3].type_name}} </router-link>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <router-link :to="'/category/type/'+type_list[4].type_name" exact-active-class = "_active"> {{type_list[4].type_name}} </router-link>-->
+<!--        </li>-->
       </div>
     </div>
     <router-view/>
@@ -24,12 +38,15 @@
     this.$axios.get("/typeApi/types/all").then((res) => {
       if(res.status == 200) {
         this.type_list = res.data.data
-      }
+    }
     });
   }
   }
 </script>
 <style>
+  /*._active{*/
+  /*  background-color : red;*/
+  /*}*/
   html,body,p,ul,li,img,a,div,form,input{
     padding: 0;
     margin: 0;
