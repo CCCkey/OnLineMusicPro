@@ -12,7 +12,7 @@
         <span class="icon icon-home"></span>
         <span class="tab-label">首页</span>
       </router-link>
-      <router-link class="tab-item" to="/">
+      <router-link class="tab-item" to="/categoty">
         <span class="icon icon-email"></span>
         <span class="tab-label">发现</span>
       </router-link>
@@ -45,13 +45,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #000;
   position: absolute;
-  top: 10px;
-  bottom: 10px;
+  top: 40px;
+  bottom: 50px;
   left: 10px;
   right: 10px;
   box-sizing: border-box;
 }
-*{margin: 0px;padding: 0px;}
+*{margin: 0;padding: 0;}
 a{
   text-decoration: none;
   cursor: pointer;
@@ -93,6 +93,8 @@ a:focus, a:hover {
   -webkit-box-shadow: none;
   box-shadow: none;
   height: 40px;
+  position: fixed;
+  top: 0;
   width: 100%;
 }
 .bar {
@@ -104,8 +106,8 @@ a:focus, a:hover {
 }
 .bar-tab {
   width: 100%;
-  position: absolute;
-  bottom: 0px;
+  position: fixed;
+  bottom: 0;
 }
 .tab-item {
   width: 20%;
