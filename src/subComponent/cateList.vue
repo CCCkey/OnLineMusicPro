@@ -17,6 +17,11 @@ export default {
     }
   },
   created(){
+    this.$axios.get("/musicApi/musics/type?type_name="+this.type_name+"&page="+this.page).then((res) => {
+      if(res.status == 200) {
+        this.list = res.data.data
+      }
+    });
   },
   watch: {
     $route: {

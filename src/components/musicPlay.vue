@@ -23,7 +23,11 @@
     </div>
     <audio id="audio" src="../assets/01.mp3" controls="controls"></audio>
     <div class="comment">
-
+      <div class="form">
+        <input type="text">
+        <span><img src="" alt=""></span>
+        <button>确定</button>
+      </div>
     </div>
   </div>
 </template>
