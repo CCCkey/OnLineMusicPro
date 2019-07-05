@@ -49,8 +49,7 @@ router.post('/comments/comment', (req,res) => {
       console.log(err);
     }
     if(result){
-      console.log(result[0].id);
-      conn.query(sql, [null, req.query.user_id, result[0].id, req.query.content, null], function(err,result) {
+      conn.query(sql, [null, 1, result[0].id, req.query.content, null], function(err,result) {
         if (err) {
           console.log(err);
         }
