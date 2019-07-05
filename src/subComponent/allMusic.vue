@@ -3,8 +3,8 @@
     <div class="con_item" v-for="item in all_list">
       <router-link :to="'/MusicPlay?musicName='+item.music_name+'&singer='+item.singer">
         <img :src="item.music_img_url" alt="">
-        <p>{{item.music_name}}</p>
-        <p>{{item.singer}}</p>
+        <p>{{item.music_name || "暂无更多内容"}}</p>
+        <p>{{item.singer || ""}}</p>
       </router-link>
     </div>
   </div>
@@ -28,6 +28,9 @@
   }
 </script>
 <style scoped>
+  a{
+    color: black;
+  }
   .cate_content {
     overflow: hidden;
     margin-top: 20px;
@@ -45,8 +48,9 @@
   }
   .con_item p{
     padding: 0 10px;
-    height: 20px;
     overflow: hidden;
     font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 </style>

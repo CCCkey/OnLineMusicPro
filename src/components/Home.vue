@@ -161,6 +161,8 @@ export default {
     height: 32px;
     line-height: 32px;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
 

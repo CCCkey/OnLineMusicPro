@@ -72,9 +72,9 @@ a:focus, a:hover {
     height: 100%;
     position: relative;
 } */
-.bar-tab .tab-item.active {
-  color: #d4237a;
-}
+/*.bar-tab .tab-item.active {*/
+/*  color: #d4237a;*/
+/*}*/
 
 .logo {
   flex: 1

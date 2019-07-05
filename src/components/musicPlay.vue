@@ -1,28 +1,13 @@
 <template>
   <div class="play">
     <div class="top">
-      {{this.music_info.music_name}}
+      {{musicName}}
+      <span></span>
     </div>
-    <div class="lyric">
-      <p>她静悄悄地来过</p>
-      <p>她慢慢带走沉默</p>
-      <p>只是最后的承诺</p>
-      <p>还是没有带走了寂寞</p>
-      <p>我们爱的没有错</p>
-      <p>只是美丽的独秀太折磨</p>
-      <p>她说无所谓</p>
-      <p>只要能在夜里 翻来覆去的 时候有寄托</p>
-      <p>等不到天黑 烟火不会太完美</p>
-      <p>回忆烧成灰 还是等不到结尾</p>
-      <p>她曾说的无所谓 我怕一天一天被摧毁</p>
-      <p>等不到天黑 不敢凋谢的花蕾</p>
-      <p>绿叶在跟随 放开刺痛的滋味</p>
-      <p>今后不再怕天明 我想只是害怕清醒</p>
-      <p>他静悄悄地来过</p>
-      <p>他慢慢带走沉默</p>
-<!--      {{this.music_info.lyric_url}}-->
+    <div class="lyric" id="lyric">
+      <p v-for = "data in lyric">{{ data }}</p>
     </div>
-    <audio id="audio" src="../assets/01.mp3" controls="controls" type=""></audio>
+    <audio id="audio" @canplay="watchMusicTime" :src="music_url" controls="controls"></audio>
     <div class="comment">
       <div class="form">
         <input type="text" v-model="content" placeholder="发表评论">
@@ -42,33 +27,68 @@
   </div>
 </template>
 <script>
+  let that;
   export default{
     data (){
       return {
         comment_list :null,
-        music_info :null,
         content:'',
         musicName:this.$route.query.musicName,
         singer:this.$route.query.singer,
-        page:1
+        page:1,
+        lyric:[],
+        time:[],
+        music_url: null
       }
     },
     methods:{
+      watchMusicTime(){
+        let musicDom = document.getElementsByTagName('audio')[0];//获取Audio的DOM节点
+        //使用事件监听方式捕捉事件
+        musicDom.addEventListener("timeupdate",function(){//监听音频播放的实时时间事件
+          let timeDisplay;
+          //用秒数来显示当前播放进度
+          timeDisplay = Math.floor(musicDom.currentTime);//获取实时时间
+          // console.log(timeDisplay)
+          //处理时间
+          //分钟
+          let minutes = parseInt(timeDisplay / 60);
+          if (minutes < 10) {
+            minutes = "0" + minutes;
+          }
+          //秒
+          let seconds = Math.round(timeDisplay % 60);
+          if (seconds < 10) {
+            seconds = "0" + seconds;
+          }
+          let length = that.time.length;
+          for(let i = 0; i < length; i++){
+            if(that.time[i] == minutes+":"+seconds){
+              let dom = document.getElementsByTagName("p");
+              for(let j = 0; j < length; j++){
+                dom[j].style.color = "black";
+              }
+              dom[i].style.color = "blue";
+            }
+          }
+        },false);
+      },
       // 添加评论
       commit(){
         if(this.content.replace(/^\s*|\s*$/g,"") == "") {
           console.log("请输入内容")
           return false;
         }
-        // this.$axios.post("/commentApi/comments/comment",{"content":this.content,"music_name":this.musicName,"singer":this.singer}).then((res) => {
-          // console.log(res)
+        this.$axios.post("/commentApi/comments/comment",{content:this.content,music_name:this.musicName,singer:this.singer}).then((res) => {
+          console.log(res)
           // if(res.status == 200) {
-          //   this.commnet_list.push({user_account : "匿名",conntent: this.content})
+          //   this.comment_list.push({ user_account : "匿名",content: this.content})
           // }
-        // })
+        })
       }
     },
     created() {
+      that = this;
       //获取评论列表
       this.$axios.get("/commentApi/comments/music?music_name="+this.musicName+"&singer="+this.singer+"&page="+this.page).then((res) => {
         console.log(res)
@@ -76,13 +96,24 @@
           this.comment_list = res.data.data
         }
       });
-      // 获取歌曲信息
       this.$axios.get("/musicApi/musics/music?music_name="+this.musicName+"&singer="+this.singer).then((res) => {
-        console.log(res)
         if(res.status == 200) {
-          this.music_info = res.data.data[0]
+          this.music_url = res.data.data[0].music_url;
+          //歌词和时间数组初始化
+          this.$axios.get("../" + res.data.data[0].lyric_url).then((res) => {
+            let i = 0;
+            res.data.lyric.split('\n').forEach(v=>{
+              this.lyric.push(v.split(']')[1]);
+              this.time.push(v.split(']')[0].split('[')[1].split('.')[0]);
+              i++;
+            });
+          });
         }
-      })
+      });
+      // // 获取点赞数
+      // this.$axios.put("/musicApi/musics/music/click_number?music_name="+this.musicName+"&singer="+this.singer).then((res) => {
+      //   console.log(res)
+      // })
     }
   }
 </script>
@@ -91,7 +122,12 @@
     list-style: none;
   }
   .play {
-
+    color: #110a1c;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
   .top {
     position: absolute;
@@ -102,16 +138,19 @@
     height: 30px;
     line-height: 30px;
     color: white;
+    z-index: 22;
   }
 .lyric {
+  position: relative;
   box-sizing: border-box;
   padding: 0 15px;
-  padding-top: 10px;
+  padding-top: 30px;
   text-align: center;
-  height: 70%;
+  height: 500px;
   width: 100%;
   font-size: 14px;
   padding-bottom: 10px;
+  overflow-y: scroll;
 }
 .lyric p{
   margin-bottom: 8px;
@@ -119,6 +158,10 @@
   #audio {
     /*background: linear-gradient(to right, #d098ff , #8cf6fb);*/
     height: 35px;
+    width: 100%;
+    padding: 10px 0;
+    outline: none;
+    /*box-sizing: border-box;*/
   }
   .form {
     box-sizing: border-box;

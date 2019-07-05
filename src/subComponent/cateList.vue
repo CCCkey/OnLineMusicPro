@@ -1,9 +1,11 @@
 <template>
   <div class="cate_content">
     <div class="con_item" v-for="item in list">
-      <img :src="item.music_img_url" alt="">
-      <p>{{item.music_name}}</p>
-      <p>{{item.singer}}</p>
+      <router-link :to="'/MusicPlay?musicName='+item.music_name+'&singer='+item.singer">
+        <img :src="item.music_img_url" alt="">
+        <p>{{item.music_name || "暂无更多内容"}}</p>
+        <p>{{item.singer || ""}}</p>
+      </router-link>
     </div>
   </div>
 </template>
@@ -29,6 +31,7 @@ export default {
         this.$axios.get("/musicApi/musics/type?type_name="+val.params.type_name+"&page="+this.page).then((res) => {
           if(res.status == 200) {
             this.list = res.data.data
+            console.log(this.list)
           }
         });
       },
@@ -56,7 +59,8 @@ export default {
   }
   .con_item p{
     overflow: hidden;
-    height: 20px;
     font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 </style>
