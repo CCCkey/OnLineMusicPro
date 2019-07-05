@@ -79,7 +79,7 @@
           console.log("请输入内容")
           return false;
         }
-        this.$axios.post("/commentApi/comments/comment",{content:this.content,music_name:this.musicName,singer:this.singer}).then((res) => {
+        this.$axios.post("/commentApi/comments/comment?content="+this.content+"&music_name="+this.musicName+"&singer="+this.singer).then((res) => {
           console.log(res)
           // if(res.status == 200) {
           //   this.comment_list.push({ user_account : "匿名",content: this.content})
