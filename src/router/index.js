@@ -19,6 +19,7 @@ Vue.config.productionTip = false;
 // });
 
 export default new Router({
+  // linkActiveClass: 'myactive',
   routes: [
     {
       path: '/',

@@ -1,9 +1,11 @@
 <template>
   <div class="cate_content">
     <div class="con_item" v-for="item in all_list">
-      <img :src="item.music_img_url" alt="">
-      <p>{{item.music_name}}</p>
-      <p>{{item.singer}}</p>
+      <router-link :to="'/MusicPlay?musicName='+item.music_name+'&singer='+item.singer">
+        <img :src="item.music_img_url" alt="">
+        <p>{{item.music_name}}</p>
+        <p>{{item.singer}}</p>
+      </router-link>
     </div>
   </div>
 </template>
