@@ -71,9 +71,11 @@
               }
               dom[i].style.color = "blue";
               temp = i;
-              let box = document.getElementsById("lyric");
-              if (i > 8) {
-                box.scrollTop = box.scrollTop + 19
+              let box = document.getElementById("lyric");
+              if (i > 9) {
+                box.scrollTop = dom[i].offsetTop - dom[9].offsetTop;
+              }else {
+                box.scrollTop = 0;
               }
             }
           }
@@ -168,12 +170,16 @@
   width: 100%;
   font-size: 14px;
   padding-bottom: 10px;
-  overflow-y: hidden;
+  overflow-y: scroll;
   background-color: #fff;
 
 }
+.lyric::-webkit-scrollbar {
+  display: none;
+}
 .lyric p{
   margin-bottom: 8px;
+  height: 20px;
 }
   #audio {
     /*background: linear-gradient(to right, #d098ff , #8cf6fb);*/

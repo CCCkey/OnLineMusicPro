@@ -19,10 +19,13 @@ Vue.config.productionTip = false;
 // });
 
 export default new Router({
-  linkActiveClass: 'router-link-active',
   routes: [
     {
       path: '/',
+      redirect: '/home'
+    },
+    {
+      path:'/home',
       name: 'Home',
       component: Home
     },

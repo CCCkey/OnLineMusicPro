@@ -8,7 +8,7 @@
     </header>
     <router-view/>
     <nav class="bar bar-tab">
-      <router-link class="tab-item" to="/">
+      <router-link class="tab-item" to="/home">
         <span class="icon icon-home"><img src="./assets/img/64x64/bottom/home.png" alt=""></span>
         <p class="tab-label">首页</p>
       </router-link>
@@ -16,15 +16,15 @@
         <span class="icon icon-email"><img src="./assets/img/64x64/bottom/music.png" alt=""></span>
         <p class="tab-label">发现</p>
       </router-link>
-      <router-link class="tab-item" to="/">
+      <router-link class="tab-item" to="/home">
         <span class="icon icon-contact"><img src="./assets/img/64x64/bottom/album.png" alt=""></span>
         <p class="tab-label">专辑</p>
       </router-link>
-      <router-link class="tab-item" to="/">
+      <router-link class="tab-item" to="">
         <span class="icon icon-gear"><img src="./assets/img/64x64/bottom/rank.png" alt=""></span>
         <p class="tab-label">排行</p>
       </router-link>
-      <router-link class="tab-item" to="/" @click="">
+      <router-link class="tab-item" to="" @click="">
         <span class="icon icon-gear"><img src="./assets/img/64x64/bottom/user.png" alt=""></span>
         <p class="tab-label">我的</p>
       </router-link>
@@ -49,9 +49,7 @@ export default {
 </script>
 
 <style>
-  .router-link-active {
-    color: #d4237a;
-  }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

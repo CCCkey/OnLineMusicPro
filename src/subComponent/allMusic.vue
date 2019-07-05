@@ -28,6 +28,7 @@
   }
 </script>
 <style scoped>
+
   a{
     color: black;
   }
