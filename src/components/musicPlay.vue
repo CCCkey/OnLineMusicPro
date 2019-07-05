@@ -2,7 +2,7 @@
   <div class="play">
     <div class="top">
       {{musicName}}
-      <span></span>
+      <span class="back" @click="goback"><img src="../assets/img/back-white.png" alt=""></span>
     </div>
     <div class="lyric" id="lyric">
       <p v-for = "data in lyric">{{ data }}</p>
@@ -27,6 +27,7 @@
   </div>
 </template>
 <script>
+  let temp = '00:00';
   let that;
   export default{
     data (){
@@ -69,11 +70,16 @@
                 dom[j].style.color = "black";
               }
               dom[i].style.color = "blue";
+              temp = i;
+              let box = document.getElementsById("lyric");
+              if (i > 8) {
+                box.scrollTop = box.scrollTop + 19
+              }
             }
           }
         },false);
       },
-      // 添加评论
+      // 发表评论
       commit(){
         if(this.content.replace(/^\s*|\s*$/g,"") == "") {
           console.log("请输入内容")
@@ -81,10 +87,14 @@
         }
         this.$axios.post("/commentApi/comments/comment?content="+this.content+"&music_name="+this.musicName+"&singer="+this.singer).then((res) => {
           console.log(res)
-          // if(res.status == 200) {
-          //   this.comment_list.push({ user_account : "匿名",content: this.content})
-          // }
+          if(res.status == 200) {
+            this.comment_list.push({ user_account : "匿名",content: this.content});
+            this.content = ""
+          }
         })
+      },
+      goback(){
+        this.$router.go(-1)
       }
     },
     created() {
@@ -110,14 +120,23 @@
           });
         }
       });
-      // // 获取点赞数
-      // this.$axios.put("/musicApi/musics/music/click_number?music_name="+this.musicName+"&singer="+this.singer).then((res) => {
-      //   console.log(res)
-      // })
+      // 获取点赞数
+      this.$axios.put("/musicApi/musics/music/click_number?music_name="+this.musicName+"&singer="+this.singer).then((res) => {
+        console.log(res)
+      })
     }
   }
 </script>
 <style scoped>
+  .back{
+    position: absolute;
+    top: 3px;
+    left: 5%;
+    width: 25px;
+  }
+  .back img{
+    width: 80%;
+  }
   li{
     list-style: none;
   }
@@ -128,9 +147,10 @@
     left: 0;
     bottom: 0;
     right: 0;
+    z-index: 11;
   }
   .top {
-    position: absolute;
+    position: fixed;
     width: 100%;
     text-align: center;
     font-size: 20px;
@@ -138,10 +158,8 @@
     height: 30px;
     line-height: 30px;
     color: white;
-    z-index: 22;
   }
 .lyric {
-  position: relative;
   box-sizing: border-box;
   padding: 0 15px;
   padding-top: 30px;
@@ -150,7 +168,9 @@
   width: 100%;
   font-size: 14px;
   padding-bottom: 10px;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  background-color: #fff;
+
 }
 .lyric p{
   margin-bottom: 8px;
@@ -197,6 +217,7 @@
     padding: 0 15px;
     width: 100%;
     padding-top: 15px;
+    margin-bottom: 50px;
   }
   .comment_list span {
     float: left;

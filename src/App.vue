@@ -49,6 +49,9 @@ export default {
 </script>
 
 <style>
+  .router-link-active {
+    color: #d4237a;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -111,6 +114,7 @@ a:focus, a:hover {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 99;
 }
 .bar {
   background-color: #fff;
@@ -123,6 +127,7 @@ a:focus, a:hover {
   width: 100%;
   position: fixed;
   bottom: 0;
+  z-index: 99;
 }
 .tab-item {
   width: 20%;

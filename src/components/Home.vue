@@ -16,9 +16,11 @@
       </div>
       <div class="new_song_body">
         <div class="new_song_item"  v-for="item in new_list">
-          <img :src="item.music_img_url" alt="">
-          <p class="title">{{item.music_name}}</p>
-          <p>{{item.singer}}</p>
+          <router-link :to="'/MusicPlay?musicName='+item.music_name+'&singer='+item.singer">
+            <img :src="item.music_img_url" alt="">
+            <p class="title">{{item.music_name}}</p>
+            <p>{{item.singer}}</p>
+          </router-link>
         </div>
       </div>
     </div>
@@ -32,16 +34,21 @@
           <img src="../assets/img/300x300/max.png" alt="">
           <ul class="list">
             <li v-for="(item,index) in max_list">
+              <router-link :to="'/MusicPlay?musicName='+item.music_name+'&singer='+item.singer">
                <span>{{index + 1}}</span>
-               {{item.music_name}}-{{item.singer}}</li>
+               {{item.music_name}}-{{item.singer}}
+              </router-link>
+            </li>
           </ul>
         </div>
         <div class="hot_item">
           <img src="../assets/img/300x300/top.png" alt="">
           <ul class="list">
             <li v-for="(item,index) in top_list">
+              <router-link :to="'/MusicPlay?musicName='+item.music_name+'&singer='+item.singer">
                 <span>{{index + 1}}</span>
               {{item.music_name}}-{{item.singer}}
+              </router-link>
             </li>
 
           </ul>
@@ -103,6 +110,9 @@ export default {
     /*display: flex;*/
     overflow: hidden;
   }
+  .new_song_body a {
+    color: black;
+  }
   .new_song_item {
     float: left;
     text-align: center;
@@ -121,7 +131,7 @@ export default {
     height: 20px;
     font-size: 14px;
   }
-  .new_song_item .title  {
+.title  {
     color: #000;
     font-size: 14px;
     font-weight: 600;
@@ -155,6 +165,9 @@ export default {
     width: 50%;
     height: 100px;
     overflow: hidden;
+  }
+  .hot_item a{
+    color: #000;
   }
   .hot_item ul>li {
     width: 100%;
