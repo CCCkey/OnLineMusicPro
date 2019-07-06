@@ -81,7 +81,7 @@
         this.$axios.post("/commentApi/comments/comment?content="+this.content+"&music_name="+this.musicName+"&singer="+this.singer).then((res) => {
           console.log(res)
           if(res.status == 200) {
-            this.comment_list.push({ user_account : "匿名",content: this.content});
+            this.comment_list.push({ user_account : "admin123",content: this.content});
             this.content = ""
           }
         })
@@ -96,7 +96,9 @@
       this.$axios.get("/commentApi/comments/music?music_name="+this.musicName+"&singer="+this.singer+"&page="+this.page).then((res) => {
         console.log(res)
         if(res.status == 200) {
-          this.comment_list = res.data.data
+          this.comment_list = res.data.data;
+          console.log(this.comment_list);
+          console.log(res.data.data)
         }
       });
       this.$axios.get("/musicApi/musics/music?music_name="+this.musicName+"&singer="+this.singer).then((res) => {
