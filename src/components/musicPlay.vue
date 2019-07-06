@@ -66,8 +66,11 @@
                 box.scrollTop = 0;
               }
             }else if(that.time[length - 1] <= timeDisplay){
+              for(let k=0; k < length - 1; k++){
+                document.getElementsByTagName("p")[k].style.color = "black";
+              }
+              document.getElementById("lyric").scrollTop = document.getElementsByTagName("p")[length - 1].offsetTop;
               document.getElementsByTagName("p")[length - 1].style.color = "blue";
-              document.getElementsByTagName("p")[length - 2].style.color = "black";
             }
           }
         },false);
