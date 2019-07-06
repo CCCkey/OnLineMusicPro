@@ -27,7 +27,6 @@
   </div>
 </template>
 <script>
-  let temp = '00:00';
   let that;
   export default{
     data (){
@@ -50,33 +49,23 @@
           let timeDisplay;
           //用秒数来显示当前播放进度
           timeDisplay = Math.floor(musicDom.currentTime);//获取实时时间
-          // console.log(timeDisplay)
-          //处理时间
-          //分钟
-          let minutes = parseInt(timeDisplay / 60);
-          if (minutes < 10) {
-            minutes = "0" + minutes;
-          }
-          //秒
-          let seconds = Math.round(timeDisplay % 60);
-          if (seconds < 10) {
-            seconds = "0" + seconds;
-          }
           let length = that.time.length;
           for(let i = 0; i < length; i++){
-            if(that.time[i] == minutes+":"+seconds){
+            if(that.time[i] <= timeDisplay && that.time[i + 1] > timeDisplay){
               let dom = document.getElementsByTagName("p");
               for(let j = 0; j < length; j++){
                 dom[j].style.color = "black";
               }
               dom[i].style.color = "blue";
-              temp = i;
               let box = document.getElementById("lyric");
-              if (i > 9) {
-                box.scrollTop = dom[i].offsetTop - dom[9].offsetTop;
+              if (i > 8) {
+                box.scrollTop = dom[i].offsetTop - dom[8].offsetTop;
               }else {
                 box.scrollTop = 0;
               }
+            }else if(that.time[length - 1] <= timeDisplay){
+              document.getElementsByTagName("p")[length - 1].style.color = "blue";
+              document.getElementsByTagName("p")[length - 2].style.color = "black";
             }
           }
         },false);
@@ -116,7 +105,7 @@
             let i = 0;
             res.data.lyric.split('\n').forEach(v=>{
               this.lyric.push(v.split(']')[1]);
-              this.time.push(v.split(']')[0].split('[')[1].split('.')[0]);
+              this.time.push(~~v.split(']')[0].split('[')[1].split('.')[0].split(":")[0] * 60 + ~~v.split(']')[0].split('[')[1].split('.')[0].split(":")[1]);
               i++;
             });
           });
