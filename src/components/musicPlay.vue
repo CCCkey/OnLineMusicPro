@@ -28,6 +28,7 @@
 </template>
 <script>
   let that;
+  let temp = 0;
   export default{
     data (){
       return {
@@ -51,12 +52,13 @@
           timeDisplay = Math.floor(musicDom.currentTime);//获取实时时间
           let length = that.time.length;
           for(let i = 0; i < length; i++){
-            if(that.time[i] <= timeDisplay && that.time[i + 1] > timeDisplay){
+            if(that.time[i] <= timeDisplay && that.time[i + 1] > timeDisplay && temp !=i){
               let dom = document.getElementsByTagName("p");
               for(let j = 0; j < length; j++){
                 dom[j].style.color = "black";
               }
               dom[i].style.color = "blue";
+              temp = i;
               let box = document.getElementById("lyric");
               if (i > 8) {
                 box.scrollTop = dom[i].offsetTop - dom[8].offsetTop;
