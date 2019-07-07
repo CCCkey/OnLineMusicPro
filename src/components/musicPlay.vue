@@ -3,6 +3,7 @@
     <div class="top">
       {{musicName}}
       <span class="back" @click="goback"><img src="../assets/img/back-white.png" alt=""></span>
+      <span class="list" @click="addLists"><img src="../assets/img/lists.png" alt=""></span>
     </div>
     <div class="lyric" id="lyric">
       <p v-for = "data in lyric">{{ data }}</p>
@@ -24,6 +25,13 @@
         </ul>
       </div>
     </div>
+    <div class="music_lists" id="music_lists" style="display: none">
+        <li v-for="music in music_list">
+          <router-link :to="'/MusicPlay?musicName='+music.split(',')[0]+'&singer='+music.split(',')[1]" @click.native="reload" replace>
+            <p>{{music.split(',')[0]}}-<span>{{music.split(',')[1]}}</span></p>
+          </router-link>
+        </li>
+    </div>
   </div>
 </template>
 <script>
@@ -39,7 +47,8 @@
         page:1,
         lyric:[],
         time:[],
-        music_url: null
+        music_url: null,
+        music_list:[],
       }
     },
     methods:{
@@ -71,6 +80,10 @@
               }
               document.getElementById("lyric").scrollTop = document.getElementsByTagName("p")[length - 1].offsetTop;
               document.getElementsByTagName("p")[length - 1].style.color = "blue";
+            }else if(that.time[0] > timeDisplay){
+              for(let k=0; k < length - 1; k++){
+                document.getElementsByTagName("p")[k].style.color = "black";
+              }
             }
           }
         },false);
@@ -90,7 +103,18 @@
         })
       },
       goback(){
-        this.$router.go(-1)
+        this.$router.go(-1);
+        //this.$router.go(0)
+      },
+      addLists(){
+        if(document.getElementById("music_lists").style.display == "none"){
+          document.getElementById("music_lists").style.display = "block";
+        }else{
+          document.getElementById("music_lists").style.display = "none";
+        }
+      },
+      reload(){
+        this.$router.go(0);
       }
     },
     created() {
@@ -121,7 +145,23 @@
       // 获取点赞数
       this.$axios.put("/musicApi/musics/music/click_number?music_name="+this.musicName+"&singer="+this.singer).then((res) => {
         console.log(res)
-      })
+      });
+      // 将歌曲添加到播放列表
+      if(sessionStorage.getItem(~~1 + '') == null){
+        sessionStorage.setItem(~~'i' + 1, this.musicName + ',' + this.singer);
+      }
+      for(let i = 1; sessionStorage.getItem(i + '') != null; i++){
+        if(sessionStorage.getItem(i + '') == this.musicName + ',' + this.singer){
+          break;
+        }
+        if(sessionStorage.getItem(i + 1) == null){
+          sessionStorage.setItem(i + 1, this.musicName + ',' + this.singer);
+        }
+      }
+      // 生成播放列表数组
+      for(let j = 1; sessionStorage.getItem(j + '') != null; j++){
+        this.music_list.push(sessionStorage.getItem(j + ''));
+      }
     }
   }
 </script>
@@ -132,7 +172,16 @@
     left: 5%;
     width: 25px;
   }
+  .list{
+    position: absolute;
+    top: 3px;
+    right: 5%;
+    width: 25px;
+  }
   .back img{
+    width: 80%;
+  }
+  .list img{
     width: 80%;
   }
   li{
@@ -238,6 +287,23 @@
     width: 7%;
     float: right;
     margin-right: 2%;
+  }
+  .music_lists{
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    font-size: 1em;
+    background: rgba(0,0,0,0.3);
+    height: 200px;
+    line-height: 30px;
+    color: rgba(255,255,255,0.7);
+    overflow-y: scroll;
+  }
+  .music_lists span{
+    font-size: 0.6em;
+  }
+  .music_lists::-webkit-scrollbar {
+    display: none;
   }
 
 </style>
